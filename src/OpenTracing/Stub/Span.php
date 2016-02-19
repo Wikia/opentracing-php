@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenTracing;
+namespace OpenTracing\Stub;
 
 /**
  * Span represents a unit of work executed on behalf of a trace. Examples of
@@ -11,8 +11,12 @@ namespace OpenTracing;
  *
  * @package OpenTracing
  */
-interface Span {
-	public function __construct( Tracer $tracer );
+class Span {
+	private $tracer = null;
+
+	function __construct( Tracer $tracer ) {
+		$this->tracer = $tracer;
+	}
 
 	/**
 	 * Sets or changes the operation name.
@@ -20,7 +24,9 @@ interface Span {
 	 * @param string $operationName
 	 * @return $this
 	 */
-	public function setOperationName( $operationName );
+	function setOperationName( $operationName ) {
+		return $this;
+	}
 
 	/**
 	 * Indicates that the work represented by this span has been completed
@@ -31,7 +37,9 @@ interface Span {
 	 *
 	 * @param int $finishTime
 	 */
-	public function finish( $finishTime = null );
+	function finish( $finishTime = null ) {
+		// noop
+	}
 
 	/**
 	 * Attaches a key/value pair to the span.
@@ -49,7 +57,9 @@ interface Span {
 	 * @param mixed $value
 	 * @return $this
 	 */
-	public function setTag( $key, $value );
+	function setTag( $key, $value ) {
+		return $this;
+	}
 
 	/**
 	 * Logs an event against the span, with the current timestamp.
@@ -58,7 +68,11 @@ interface Span {
 	 * @param array $payload
 	 * @return $this
 	 */
-	public function logEvent( $event, $payload = null );
+	function logEvent( $event, $payload = null ) {
+		$this->log( null, $event, $payload );
+
+		return $this;
+	}
 
 	/**
 	 * Records a generic Log event at an arbitrary timestamp.
@@ -68,7 +82,9 @@ interface Span {
 	 * @param array $payload
 	 * @return $this
 	 */
-	public function log( $timestamp, $event, $payload = null );
+	function log( $timestamp, $event, $payload = null ) {
+		return $this;
+	}
 
 	/**
 	 * Stores a Trace Attribute in the span as a key/value pair.
@@ -90,7 +106,9 @@ interface Span {
 	 * @param mixed $value
 	 * @return $this
 	 */
-	public function setTraceAttribute( $key, $value );
+	function setTraceAttribute( $key, $value ) {
+		return $this;
+	}
 
 	/**
 	 * Retrieves value of the Trace Attribute with the given key.
@@ -102,14 +120,18 @@ interface Span {
 	 * @param string $key
 	 * @return mixed
 	 */
-	public function getTraceAttribute( $key );
+	function getTraceAttribute( $key ) {
+		return null;
+	}
 
 	/**
 	 * Provides access to the Tracer that created this Span.
 	 *
 	 * @return Tracer
 	 */
-	public function getTracer();
+	function getTracer() {
+		return $this->tracer;
+	}
 
 	/**
 	 * A shorthand method that starts a child span given a parent span.
@@ -118,5 +140,7 @@ interface Span {
 	 * @param array $tags
 	 * @param int $startTime
 	 */
-	public function startChild( $operationName, $tags = null, $startTime = null );
+	function startChild( $operationName, $tags = null, $startTime = null ) {
+		$this->getTracer()->startSpan( $operationName, $this, $tags, $startTime );
+	}
 }

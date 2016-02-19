@@ -1,6 +1,9 @@
 <?php
 
-namespace OpenTracing;
+namespace OpenTracing\Stub;
+
+use OpenTracing\Injector;
+use OpenTracing\Extractor;
 
 class NoopPropagator implements Injector, Extractor {
 	private $tracer = null;

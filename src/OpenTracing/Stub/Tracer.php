@@ -1,6 +1,9 @@
 <?php
 
-namespace OpenTracing;
+namespace OpenTracing\Stub;
+
+use OpenTracing\Injector;
+use OpenTracing\Extractor;
 
 /**
  * Tracer is the entry point API between instrumentation code and the
@@ -11,7 +14,15 @@ namespace OpenTracing;
  *
  * @package OpenTracing
  */
-interface Tracer {
+class Tracer {
+	private $noopSpan = null;
+	private $noopPropagator = null;
+
+	function __construct() {
+		$this->noopSpan = new Span( $this );
+		$this->noopPropagator = new NoopPropagator( $this, $this->noopSpan );
+	}
+
 	/**
 	 * Starts and returns a new Span representing a unit of work.
 	 *
@@ -21,7 +32,9 @@ interface Tracer {
 	 * @param int $startTime
 	 * @return Span
 	 */
-	public function startSpan( $operationName = null, $parent = null, $tags = null, $startTime = null );
+	function startSpan( $operationName = null, $parent = null, $tags = null, $startTime = null ) {
+		return $this->noopSpan;
+	}
 
 	/**
 	 * Returns an Injector instance corresponding to $format
@@ -29,7 +42,9 @@ interface Tracer {
 	 * @param string $format
 	 * @return Injector
 	 */
-	public function injector( $format );
+	function injector( $format ) {
+		return $this->noopPropagator;
+	}
 
 	/**
 	 * Returns an Extractor instance corresponding to $format
@@ -37,7 +52,9 @@ interface Tracer {
 	 * @param string $format
 	 * @return Extractor
 	 */
-	public function extractor( $format );
+	function extractor( $format ) {
+		return $this->noopPropagator;
+	}
 
 	/**
 	 * Flushes any trace data that may be buffered in memory, presumably
@@ -45,5 +62,7 @@ interface Tracer {
 	 *
 	 * @return void
 	 */
-	public function flush();
+	function flush() {
+		// noop
+	}
 }
