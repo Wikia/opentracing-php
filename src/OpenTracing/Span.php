@@ -12,8 +12,6 @@ namespace OpenTracing;
  * @package OpenTracing
  */
 interface Span {
-	public function __construct( Tracer $tracer );
-
 	/**
 	 * Sets or changes the operation name.
 	 *

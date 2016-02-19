@@ -1,21 +1,18 @@
 <?php
 
-namespace OpenTracing\Stub;
+namespace OpenTracing\Standard;
 
-/**
- * Span represents a unit of work executed on behalf of a trace. Examples of
- * spans include a remote procedure call, or a in-process method call to a
- * sub-component. A trace is required to have a single, top level "root"
- * span, and zero or more children spans, which in turns can have their own
- * children spans, thus forming a tree structure.
- *
- * @package OpenTracing
- */
-class Span {
+use OpenTracing;
+
+
+class Span implements OpenTracing\Span {
+
 	private $tracer = null;
+	private $data = null;
 
-	function __construct( Tracer $tracer ) {
+	public function __construct( OpenTracing\Tracer $tracer, SpanData $data ) {
 		$this->tracer = $tracer;
+		$this->data = $data;
 	}
 
 	/**
@@ -24,7 +21,9 @@ class Span {
 	 * @param string $operationName
 	 * @return $this
 	 */
-	function setOperationName( $operationName ) {
+	public function setOperationName( $operationName ) {
+		$this->data->operationName = $operationName;
+
 		return $this;
 	}
 
@@ -37,7 +36,7 @@ class Span {
 	 *
 	 * @param int $finishTime
 	 */
-	function finish( $finishTime = null ) {
+	public function finish( $finishTime = null ) {
 		// noop
 	}
 
@@ -57,7 +56,9 @@ class Span {
 	 * @param mixed $value
 	 * @return $this
 	 */
-	function setTag( $key, $value ) {
+	public function setTag( $key, $value ) {
+		$this->data->tags[$key] = $value;
+
 		return $this;
 	}
 
@@ -68,8 +69,8 @@ class Span {
 	 * @param array $payload
 	 * @return $this
 	 */
-	function logEvent( $event, $payload = null ) {
-		$this->log( null, $event, $payload );
+	public function logEvent( $event, $payload = null ) {
+		$this->log( microtime( true ), $event, $payload );
 
 		return $this;
 	}
@@ -82,7 +83,14 @@ class Span {
 	 * @param array $payload
 	 * @return $this
 	 */
-	function log( $timestamp, $event, $payload = null ) {
+	public function log( $timestamp, $event, $payload = null ) {
+		$eventData = [
+			'timestamp' => $timestamp,
+			'event' => $event,
+			'payload' => $payload,
+		];
+		$this->data->logs[] = $eventData;
+
 		return $this;
 	}
 
@@ -106,7 +114,9 @@ class Span {
 	 * @param mixed $value
 	 * @return $this
 	 */
-	function setTraceAttribute( $key, $value ) {
+	public function setTraceAttribute( $key, $value ) {
+		$this->data->attributes[$key] = $value;
+
 		return $this;
 	}
 
@@ -120,8 +130,8 @@ class Span {
 	 * @param string $key
 	 * @return mixed
 	 */
-	function getTraceAttribute( $key ) {
-		return null;
+	public function getTraceAttribute( $key ) {
+		return array_key_exists( $key, $this->data->attributes ) ? $this->data->attributes[$key] : null;
 	}
 
 	/**
@@ -132,7 +142,7 @@ class Span {
 	 * @param int $startTime
 	 * @return Span
 	 */
-	function startChild( $operationName, $tags = null, $startTime = null ) {
+	public function startChild( $operationName, $tags = null, $startTime = null ) {
 		return $this->getTracer()->startSpan( $operationName, $this, $tags, $startTime );
 	}
 
@@ -141,7 +151,14 @@ class Span {
 	 *
 	 * @return Tracer
 	 */
-	function getTracer() {
+	public function getTracer() {
 		return $this->tracer;
+	}
+
+	/**
+	 * @return SpanData
+	 */
+	public function getData() {
+		return $this->data;
 	}
 }

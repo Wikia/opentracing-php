@@ -26,8 +26,8 @@ interface Injector {
 	 * if injection fails.
 	 *
 	 * @param Span $span
-	 * @param $carrier
+	 * @param mixed $carrier
 	 * @return void
 	 */
-	function injectSpan( Span $span, $carrier );
+	function injectSpan( Span $span, &$carrier );
 }
