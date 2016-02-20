@@ -29,7 +29,7 @@ class Tracer {
 	 * @param string $operationName
 	 * @param Span $parent
 	 * @param array $tags
-	 * @param int $startTime
+	 * @param float $startTime
 	 * @return Span
 	 */
 	public function startSpan( $operationName = null, $parent = null, $tags = null, $startTime = null ) {

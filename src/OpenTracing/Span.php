@@ -27,7 +27,7 @@ interface Span {
 	 * If any tags / logs need to be added to the span, it should be done
 	 * before calling finish(), otherwise they may be ignored.
 	 *
-	 * @param int $finishTime
+	 * @param float $finishTime
 	 */
 	public function finish( $finishTime = null );
 
@@ -61,7 +61,7 @@ interface Span {
 	/**
 	 * Records a generic Log event at an arbitrary timestamp.
 	 *
-	 * @param int $timestamp
+	 * @param float $timestamp
 	 * @param string $event
 	 * @param array $payload
 	 * @return $this
@@ -114,7 +114,7 @@ interface Span {
 	 *
 	 * @param string $operationName
 	 * @param array $tags
-	 * @param int $startTime
+	 * @param float $startTime
 	 */
 	public function startChild( $operationName, $tags = null, $startTime = null );
 }
