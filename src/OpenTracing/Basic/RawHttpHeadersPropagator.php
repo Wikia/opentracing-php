@@ -6,9 +6,9 @@ use OpenTracing;
 
 class RawHttpHeadersPropagator extends Propagator {
 
-	const HTTP_HEADER_COMMON_PREFIX_LOWER = 'x-opentracing-';
-	const HTTP_HEADER_STATE_PREFIX_LOWER = 'x-opentracing-';
-	const HTTP_HEADER_ATTRIBUTES_PREFIX_LOWER = 'x-opentracing-attribute-';
+	const HTTP_HEADER_COMMON_PREFIX_LOWER = 'opentracing-';
+	const HTTP_HEADER_STATE_PREFIX_LOWER = 'opentracing-';
+	const HTTP_HEADER_ATTRIBUTES_PREFIX_LOWER = 'opentracing-attribute-';
 
 	/**
 	 * Returns a Span instance with operation name $operationName

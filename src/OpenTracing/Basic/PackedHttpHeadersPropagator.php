@@ -6,8 +6,8 @@ use OpenTracing;
 
 class PackedHttpHeadersPropagator extends Propagator {
 
-	const HTTP_HEADER_STATE_LOWER = 'x-opentracing-state';
-	const HTTP_HEADER_ATTRIBUTES_LOWER = 'x-opentracing-attributes';
+	const HTTP_HEADER_STATE_LOWER = 'opentracing-state';
+	const HTTP_HEADER_ATTRIBUTES_LOWER = 'opentracing-attributes';
 
 	/**
 	 * Returns a Span instance with operation name $operationName
