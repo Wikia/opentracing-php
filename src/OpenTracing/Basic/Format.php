@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenTracing\Standard;
+namespace OpenTracing\Basic;
 
 class Format {
 
