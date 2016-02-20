@@ -10,7 +10,7 @@ class Tracer implements OpenTracing\Tracer {
 
 	private $recorder = null;
 
-	public function __construct( OpenTracing\Recorder $recorder = null ) {
+	public function __construct( Recorder $recorder = null ) {
 		$this->recorder = $recorder;
 	}
 

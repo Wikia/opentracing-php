@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenTracing;
+namespace OpenTracing\Basic;
 
 interface Recorder {
 
