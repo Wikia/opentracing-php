@@ -24,7 +24,7 @@ class RawHttpHeadersPropagator extends Propagator {
 	 * @param mixed $carrier
 	 * @return Span
 	 */
-	function joinTrace( $operationName, &$carrier ) {
+	public function joinTrace( $operationName, &$carrier ) {
 		$commonPrefixLen = strlen(self::HTTP_HEADER_COMMON_PREFIX_LOWER);
 		$statePrefixLen = strlen(self::HTTP_HEADER_STATE_PREFIX_LOWER);
 		$attributesPrefixLen = strlen(self::HTTP_HEADER_ATTRIBUTES_PREFIX_LOWER);
@@ -63,7 +63,7 @@ class RawHttpHeadersPropagator extends Propagator {
 	 * @param mixed $carrier
 	 * @return void
 	 */
-	function injectSpan( OpenTracing\Span $span, &$carrier ) {
+	public function injectSpan( OpenTracing\Span $span, &$carrier ) {
 		$this->validateSpan( $span );
 
 		$textCarrier = [];

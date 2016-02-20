@@ -29,5 +29,5 @@ interface Injector {
 	 * @param mixed $carrier
 	 * @return void
 	 */
-	function injectSpan( Span $span, &$carrier );
+	public function injectSpan( Span $span, &$carrier );
 }

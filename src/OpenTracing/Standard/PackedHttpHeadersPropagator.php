@@ -23,7 +23,7 @@ class PackedHttpHeadersPropagator extends Propagator {
 	 * @param mixed $carrier
 	 * @return Span
 	 */
-	function joinTrace( $operationName, &$carrier ) {
+	public function joinTrace( $operationName, &$carrier ) {
 		$binaryCarrier = [ ];
 		foreach ( $carrier as $k => $v ) {
 			$k = strtolower( $k );
@@ -53,7 +53,7 @@ class PackedHttpHeadersPropagator extends Propagator {
 	 * @param mixed $carrier
 	 * @return void
 	 */
-	function injectSpan( OpenTracing\Span $span, &$carrier ) {
+	public function injectSpan( OpenTracing\Span $span, &$carrier ) {
 		$this->validateSpan( $span );
 
 		$binaryCarrier = [];

@@ -20,7 +20,7 @@ class SplitBinaryPropagator extends Propagator {
 	 * @param mixed $carrier
 	 * @return Span
 	 */
-	function joinTrace( $operationName, &$carrier ) {
+	public function joinTrace( $operationName, &$carrier ) {
 		if ( !$carrier || !is_array( $carrier ) || empty( $carrier[self::FIELD_STATE] ) || empty( $carrier[self::FIELD_ATTRIBUTES] ) ) {
 			throw new \InvalidArgumentException( 'Carrier does not contain valid tracer data' );
 		}
@@ -51,7 +51,7 @@ class SplitBinaryPropagator extends Propagator {
 	 * @param $carrier
 	 * @return void
 	 */
-	function injectSpan( OpenTracing\Span $span, &$carrier ) {
+	public function injectSpan( OpenTracing\Span $span, &$carrier ) {
 		$this->validateSpan( $span );
 
 		$spanData = $span->getData();

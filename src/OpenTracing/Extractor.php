@@ -29,5 +29,5 @@ interface Extractor {
 	 * @param mixed $carrier
 	 * @return Span
 	 */
-	function joinTrace( $operationName, &$carrier );
+	public function joinTrace( $operationName, &$carrier );
 }

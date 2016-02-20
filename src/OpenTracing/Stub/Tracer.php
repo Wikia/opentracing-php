@@ -18,7 +18,7 @@ class Tracer {
 	private $noopSpan = null;
 	private $noopPropagator = null;
 
-	function __construct() {
+	public function __construct() {
 		$this->noopSpan = new Span( $this );
 		$this->noopPropagator = new NoopPropagator( $this, $this->noopSpan );
 	}
@@ -32,7 +32,7 @@ class Tracer {
 	 * @param int $startTime
 	 * @return Span
 	 */
-	function startSpan( $operationName = null, $parent = null, $tags = null, $startTime = null ) {
+	public function startSpan( $operationName = null, $parent = null, $tags = null, $startTime = null ) {
 		return $this->noopSpan;
 	}
 
@@ -42,7 +42,7 @@ class Tracer {
 	 * @param string $format
 	 * @return Injector
 	 */
-	function injector( $format ) {
+	public function injector( $format ) {
 		return $this->noopPropagator;
 	}
 
@@ -52,7 +52,7 @@ class Tracer {
 	 * @param string $format
 	 * @return Extractor
 	 */
-	function extractor( $format ) {
+	public function extractor( $format ) {
 		return $this->noopPropagator;
 	}
 
@@ -62,7 +62,7 @@ class Tracer {
 	 *
 	 * @return void
 	 */
-	function flush() {
+	public function flush() {
 		// noop
 	}
 }

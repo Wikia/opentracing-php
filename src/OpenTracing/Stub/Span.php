@@ -14,7 +14,7 @@ namespace OpenTracing\Stub;
 class Span {
 	private $tracer = null;
 
-	function __construct( Tracer $tracer ) {
+	public function __construct( Tracer $tracer ) {
 		$this->tracer = $tracer;
 	}
 
@@ -24,7 +24,7 @@ class Span {
 	 * @param string $operationName
 	 * @return $this
 	 */
-	function setOperationName( $operationName ) {
+	public function setOperationName( $operationName ) {
 		return $this;
 	}
 
@@ -37,7 +37,7 @@ class Span {
 	 *
 	 * @param int $finishTime
 	 */
-	function finish( $finishTime = null ) {
+	public function finish( $finishTime = null ) {
 		// noop
 	}
 
@@ -57,7 +57,7 @@ class Span {
 	 * @param mixed $value
 	 * @return $this
 	 */
-	function setTag( $key, $value ) {
+	public function setTag( $key, $value ) {
 		return $this;
 	}
 
@@ -68,7 +68,7 @@ class Span {
 	 * @param array $payload
 	 * @return $this
 	 */
-	function logEvent( $event, $payload = null ) {
+	public function logEvent( $event, $payload = null ) {
 		$this->log( null, $event, $payload );
 
 		return $this;
@@ -82,7 +82,7 @@ class Span {
 	 * @param array $payload
 	 * @return $this
 	 */
-	function log( $timestamp, $event, $payload = null ) {
+	public function log( $timestamp, $event, $payload = null ) {
 		return $this;
 	}
 
@@ -106,7 +106,7 @@ class Span {
 	 * @param mixed $value
 	 * @return $this
 	 */
-	function setTraceAttribute( $key, $value ) {
+	public function setTraceAttribute( $key, $value ) {
 		return $this;
 	}
 
@@ -120,7 +120,7 @@ class Span {
 	 * @param string $key
 	 * @return mixed
 	 */
-	function getTraceAttribute( $key ) {
+	public function getTraceAttribute( $key ) {
 		return null;
 	}
 
@@ -132,7 +132,7 @@ class Span {
 	 * @param int $startTime
 	 * @return Span
 	 */
-	function startChild( $operationName, $tags = null, $startTime = null ) {
+	public function startChild( $operationName, $tags = null, $startTime = null ) {
 		return $this->getTracer()->startSpan( $operationName, $this, $tags, $startTime );
 	}
 
@@ -141,7 +141,7 @@ class Span {
 	 *
 	 * @return Tracer
 	 */
-	function getTracer() {
+	public function getTracer() {
 		return $this->tracer;
 	}
 }
