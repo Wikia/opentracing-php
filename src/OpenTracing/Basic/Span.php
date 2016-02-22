@@ -5,10 +5,9 @@ namespace OpenTracing\Basic;
 use OpenTracing;
 
 
-class Span implements OpenTracing\Span
+class Span extends OpenTracing\Span
 {
 
-    private $tracer = null;
     private $data = null;
 
     public function __construct(OpenTracing\Tracer $tracer, SpanData $data)

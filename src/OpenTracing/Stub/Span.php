@@ -2,6 +2,8 @@
 
 namespace OpenTracing\Stub;
 
+use OpenTracing;
+
 /**
  * Span represents a unit of work executed on behalf of a trace. Examples of
  * spans include a remote procedure call, or a in-process method call to a
@@ -11,10 +13,8 @@ namespace OpenTracing\Stub;
  *
  * @package OpenTracing
  */
-class Span
+class Span extends OpenTracing\Span
 {
-    private $tracer = null;
-
     public function __construct(Tracer $tracer)
     {
         $this->tracer = $tracer;
@@ -131,19 +131,6 @@ class Span
     public function getTraceAttribute($key)
     {
         return null;
-    }
-
-    /**
-     * A shorthand method that starts a child span given a parent span.
-     *
-     * @param string $operationName
-     * @param array $tags
-     * @param float $startTime
-     * @return Span
-     */
-    public function startChild($operationName, $tags = null, $startTime = null)
-    {
-        return $this->getTracer()->startSpan($operationName, $this, $tags, $startTime);
     }
 
     /**

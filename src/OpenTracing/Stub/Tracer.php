@@ -2,6 +2,7 @@
 
 namespace OpenTracing\Stub;
 
+use OpenTracing;
 use OpenTracing\Injector;
 use OpenTracing\Extractor;
 
@@ -14,7 +15,7 @@ use OpenTracing\Extractor;
  *
  * @package OpenTracing
  */
-class Tracer
+class Tracer implements OpenTracing\Tracer
 {
     private $noopSpan = null;
     private $noopPropagator = null;
