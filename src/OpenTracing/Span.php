@@ -13,8 +13,6 @@ namespace OpenTracing;
  */
 abstract class Span
 {
-    protected $tracer = null;
-
     /**
      * Sets or changes the operation name.
      *
@@ -110,9 +108,7 @@ abstract class Span
      *
      * @return Tracer
      */
-    public function getTracer() {
-        return $this->tracer;
-    }
+    abstract public function getTracer();
 
     /**
      * A shorthand method that starts a child span given a parent span.
