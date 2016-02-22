@@ -11,7 +11,7 @@ class SplitTextCarrier
     /**
      * @var array
      */
-    private $attributes = null;
+    private $baggage = null;
 
     /**
      * @return array
@@ -35,18 +35,18 @@ class SplitTextCarrier
     /**
      * @return array
      */
-    public function getAttributes()
+    public function getBaggage()
     {
-        return $this->attributes;
+        return $this->baggage;
     }
 
     /**
-     * @param array $attributes
+     * @param array $baggage
      * @return SplitTextCarrier
      */
-    public function setAttributes(array $attributes)
+    public function setBaggage(array $baggage)
     {
-        $this->attributes = $attributes;
+        $this->baggage = $baggage;
 
         return $this;
     }

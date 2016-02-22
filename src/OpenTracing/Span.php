@@ -70,16 +70,16 @@ abstract class Span
     abstract public function log($timestamp, $event, $payload = null);
 
     /**
-     * Stores a Trace Attribute in the span as a key/value pair.
+     * Stores Baggage in the span as a key/value pair.
      *
      * Enables powerful distributed context propagation functionality where
      * arbitrary application data can be carried along the full path of
      * request execution throughout the system.
      *
-     * Note 1: attributes are only propagated to the future (recursive)
+     * Note 1: baggage is only propagated to the future (recursive)
      * children of this Span.
      *
-     * Note 2: attributes are sent in-band with every subsequent local and
+     * Note 2: baggage is sent in-band with every subsequent local and
      * remote calls, so this feature must be used with care.
      *
      * Note 3: keys are case-insensitive, to allow propagation via HTTP
@@ -89,10 +89,10 @@ abstract class Span
      * @param mixed $value
      * @return $this
      */
-    abstract public function setTraceAttribute($key, $value);
+    abstract public function setBaggage($key, $value);
 
     /**
-     * Retrieves value of the Trace Attribute with the given key.
+     * Retrieves value of the Baggage with the given key.
      *
      * Returns null if key doesn't exist.
      *
@@ -101,7 +101,7 @@ abstract class Span
      * @param string $key
      * @return mixed
      */
-    abstract public function getTraceAttribute($key);
+    abstract public function getBaggage($key);
 
     /**
      * Provides access to the Tracer that created this Span.

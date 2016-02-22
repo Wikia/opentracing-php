@@ -12,7 +12,7 @@ class SplitBinaryCarrier
     /**
      * @var string
      */
-    private $attributes = null;
+    private $baggage = null;
 
     /**
      * @return string
@@ -36,18 +36,18 @@ class SplitBinaryCarrier
     /**
      * @return string
      */
-    public function getAttributes()
+    public function getBaggage()
     {
-        return $this->attributes;
+        return $this->baggage;
     }
 
     /**
-     * @param string $attributes
+     * @param string $baggage
      * @return SplitBinaryCarrier
      */
-    public function setAttributes($attributes)
+    public function setBaggage($baggage)
     {
-        $this->attributes = $attributes;
+        $this->baggage = $baggage;
 
         return $this;
     }
