@@ -122,7 +122,7 @@ abstract class Span
      * @param float $startTime
      * @return Span
      */
-    public function startChild($operationName, $tags = null, $startTime = null)
+    public final function startChild($operationName, $tags = null, $startTime = null)
     {
         return $this->getTracer()->startSpan($operationName, $this, $tags, $startTime);
     }
