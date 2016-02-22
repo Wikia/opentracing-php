@@ -70,7 +70,7 @@ abstract class Span
     abstract public function log($timestamp, $event, $payload = null);
 
     /**
-     * Stores Baggage in the span as a key/value pair.
+     * Stores Baggage Item in the span as a key/value pair.
      *
      * Enables powerful distributed context propagation functionality where
      * arbitrary application data can be carried along the full path of
@@ -89,10 +89,10 @@ abstract class Span
      * @param mixed $value
      * @return $this
      */
-    abstract public function setBaggage($key, $value);
+    abstract public function setBaggageItem($key, $value);
 
     /**
-     * Retrieves value of the Baggage with the given key.
+     * Retrieves value of the Baggage Item with the given key.
      *
      * Returns null if key doesn't exist.
      *
@@ -101,7 +101,7 @@ abstract class Span
      * @param string $key
      * @return mixed
      */
-    abstract public function getBaggage($key);
+    abstract public function getBaggageItem($key);
 
     /**
      * Provides access to the Tracer that created this Span.
