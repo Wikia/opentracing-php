@@ -2,6 +2,8 @@
 
 namespace OpenTracing;
 
+use OpenTracing\Exception\InvalidCarrierException;
+
 /**
  * An Injector injects Span instances into a format-specific "carrier"
  * object.
@@ -25,6 +27,8 @@ interface Injector
      *
      * Implementations may raise implementation-specific exception
      * if injection fails.
+     *
+     * @throws InvalidCarrierException
      *
      * @param Span $span
      * @param mixed $carrier
