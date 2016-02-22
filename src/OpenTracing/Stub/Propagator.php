@@ -6,7 +6,7 @@ use OpenTracing;
 use OpenTracing\Injector;
 use OpenTracing\Extractor;
 
-class NoopPropagator implements Injector, Extractor
+class Propagator implements Injector, Extractor
 {
     private $tracer = null;
     private $noopSpan = null;

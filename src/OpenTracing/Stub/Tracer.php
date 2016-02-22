@@ -22,7 +22,7 @@ class Tracer
     public function __construct()
     {
         $this->noopSpan = new Span($this);
-        $this->noopPropagator = new NoopPropagator($this, $this->noopSpan);
+        $this->noopPropagator = new Propagator($this, $this->noopSpan);
     }
 
     /**
