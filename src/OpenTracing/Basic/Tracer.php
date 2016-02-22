@@ -7,7 +7,7 @@ use OpenTracing;
 class Tracer implements OpenTracing\Tracer
 {
 
-    static protected $propagators = null;
+    protected static $propagators = null;
 
     private $recorder = null;
 
