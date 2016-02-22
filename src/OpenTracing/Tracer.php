@@ -11,8 +11,13 @@ namespace OpenTracing;
  *
  * @package OpenTracing
  */
-interface Tracer
+abstract class Tracer
 {
+    /**
+     * @var Tracer
+     */
+    private static $globalTracerInstance = null;
+
     /**
      * Starts and returns a new Span representing a unit of work.
      *
@@ -22,7 +27,7 @@ interface Tracer
      * @param float $startTime
      * @return Span
      */
-    public function startSpan($operationName = null, $parent = null, $tags = null, $startTime = null);
+    abstract public function startSpan($operationName = null, $parent = null, $tags = null, $startTime = null);
 
     /**
      * Returns an Injector instance corresponding to $format
@@ -30,7 +35,7 @@ interface Tracer
      * @param string $format
      * @return Injector
      */
-    public function injector($format);
+    abstract public function injector($format);
 
     /**
      * Returns an Extractor instance corresponding to $format
@@ -38,7 +43,7 @@ interface Tracer
      * @param string $format
      * @return Extractor
      */
-    public function extractor($format);
+    abstract public function extractor($format);
 
     /**
      * Flushes any trace data that may be buffered in memory, presumably
@@ -46,5 +51,28 @@ interface Tracer
      *
      * @return void
      */
-    public function flush();
+    abstract public function flush();
+
+    /**
+     * Initialized the GlobalTracer singleton with the provided Tracer instance
+     *
+     * @param Tracer $tracer
+     */
+    public static final function setGlobalTracer(Tracer $tracer)
+    {
+        self::$globalTracerInstance = $tracer;
+    }
+
+    /**
+     * Gets current GlobalTracer singleton.
+     *
+     * Returns null if not initialized yet.
+     *
+     * @return Tracer|null
+     */
+    public static final function getGlobalTracer()
+    {
+        return self::$globalTracerInstance;
+    }
+
 }

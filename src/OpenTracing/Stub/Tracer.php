@@ -15,7 +15,7 @@ use OpenTracing\Extractor;
  *
  * @package OpenTracing
  */
-class Tracer implements OpenTracing\Tracer
+class Tracer extends OpenTracing\Tracer
 {
     private $noopSpan = null;
     private $noopPropagator = null;
