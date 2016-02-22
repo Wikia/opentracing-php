@@ -2,6 +2,7 @@
 
 namespace OpenTracing\Basic;
 
-interface Recorder {
+interface Recorder
+{
 
 }

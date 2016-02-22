@@ -2,9 +2,10 @@
 
 namespace OpenTracing;
 
-class Format {
+class Format
+{
 
-	const SPLIT_TEXT = 'split_text';
-	const SPLIT_BINARY = 'split_binary';
+    const SPLIT_TEXT = 'split_text';
+    const SPLIT_BINARY = 'split_binary';
 
 }

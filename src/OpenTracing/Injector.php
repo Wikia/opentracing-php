@@ -14,20 +14,21 @@ namespace OpenTracing;
  *
  * @package OpenTracing
  */
-interface Injector {
+interface Injector
+{
 
-	/**
-	 * Takes $span and injects it into $carrier.
-	 *
-	 * The actual type of $carrier depends on the $format value passed to
-	 * Tracer.injector().
-	 *
-	 * Implementations may raise implementation-specific exception
-	 * if injection fails.
-	 *
-	 * @param Span $span
-	 * @param mixed $carrier
-	 * @return void
-	 */
-	public function injectSpan( Span $span, &$carrier );
+    /**
+     * Takes $span and injects it into $carrier.
+     *
+     * The actual type of $carrier depends on the $format value passed to
+     * Tracer.injector().
+     *
+     * Implementations may raise implementation-specific exception
+     * if injection fails.
+     *
+     * @param Span $span
+     * @param mixed $carrier
+     * @return void
+     */
+    public function injectSpan(Span $span, &$carrier);
 }

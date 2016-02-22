@@ -13,21 +13,22 @@ namespace OpenTracing;
  *
  * @package OpenTracing
  */
-interface Extractor {
+interface Extractor
+{
 
-	/**
-	 * Returns a Span instance with operation name $operationName
-	 * that's joined to the trace state embedded within $carrier, or null if
-	 * no such trace state could be found.
-	 *
-	 * Implementations may raise implementation-specific errors
-	 * if there are more fundamental problems with `carrier`.
-	 *
-	 * Upon success, the returned Span instance is already started.
-	 *
-	 * @param string $operationName
-	 * @param mixed $carrier
-	 * @return Span
-	 */
-	public function joinTrace( $operationName, &$carrier );
+    /**
+     * Returns a Span instance with operation name $operationName
+     * that's joined to the trace state embedded within $carrier, or null if
+     * no such trace state could be found.
+     *
+     * Implementations may raise implementation-specific errors
+     * if there are more fundamental problems with `carrier`.
+     *
+     * Upon success, the returned Span instance is already started.
+     *
+     * @param string $operationName
+     * @param mixed $carrier
+     * @return Span
+     */
+    public function joinTrace($operationName, &$carrier);
 }
