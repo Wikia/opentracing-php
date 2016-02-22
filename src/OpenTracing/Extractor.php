@@ -2,6 +2,9 @@
 
 namespace OpenTracing;
 
+use OpenTracing\Exception\EmptyCarrierException;
+use OpenTracing\Exception\InvalidFormatException;
+
 /**
  * An Extractor extracts Span instances from a format-specific "carrier" object.
  *
@@ -25,6 +28,9 @@ interface Extractor
      * if there are more fundamental problems with `carrier`.
      *
      * Upon success, the returned Span instance is already started.
+     *
+     * @throws EmptyCarrierException
+     * @throws InvalidFormatException
      *
      * @param string $operationName
      * @param mixed $carrier

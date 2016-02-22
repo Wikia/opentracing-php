@@ -2,6 +2,8 @@
 
 namespace OpenTracing;
 
+use OpenTracing\Exception\InvalidFormatException;
+
 /**
  * Tracer is the entry point API between instrumentation code and the
  * tracing implementation.
@@ -32,6 +34,8 @@ abstract class Tracer
     /**
      * Returns an Injector instance corresponding to $format
      *
+     * @throws InvalidFormatException
+     *
      * @param string $format
      * @return Injector
      */
@@ -40,6 +44,8 @@ abstract class Tracer
     /**
      * Returns an Extractor instance corresponding to $format
      *
+     * @throws InvalidFormatException
+
      * @param string $format
      * @return Extractor
      */
