@@ -1,5 +1,5 @@
 {
-  "name": "Wikia/opentracing-php",
+  "name": "wikia/opentracing-php",
   "description": "Unofficial implementation of http://opentracing.io/",
   "keywords": [
     "opentracing",
