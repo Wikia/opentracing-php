@@ -1,28 +1,33 @@
 {
-	"name": "Wikia/opentracing-php",
-	"description": "Unofficial implementation of http://opentracing.io/",
-	"keywords": [ "opentracing", "opentracing.io", "tracer", "span", "tracing", "soa"],
-
-	"homepage": "https://github.com/Wikia/opentracing-php",
-	"type": "library",
-	"license": "MIT",
-
-	"authors": [
-		{
-			"name": "Władysław Bodzek",
-			"email": "wbodzek@o2.pl",
-			"homepage": "https://www.linkedin.com/in/w%C5%82adys%C5%82aw-bodzek-6b229b2",
-			"role": "Developer"
-		}
-	],
-
-	"autoload": {
-		"psr-4": { "OpenTracing\\": "src/" }
-	},
-
-	"extra": {
-		"branch-alias": {
-			"dev-master": "master"
-		}
-	}
+  "name": "Wikia/opentracing-php",
+  "description": "Unofficial implementation of http://opentracing.io/",
+  "keywords": [
+    "opentracing",
+    "opentracing.io",
+    "tracer",
+    "span",
+    "tracing",
+    "soa"
+  ],
+  "homepage": "https://github.com/Wikia/opentracing-php",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Władysław Bodzek",
+      "email": "wbodzek@o2.pl",
+      "homepage": "https://www.linkedin.com/in/w%C5%82adys%C5%82aw-bodzek-6b229b2",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "OpenTracing\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "master"
+    }
+  }
 }
