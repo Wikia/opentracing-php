@@ -71,7 +71,7 @@ abstract class Tracer
     abstract public function flush();
 
     /**
-     * Initialized the GlobalTracer singleton with the provided Tracer instance
+     * Initialize the GlobalTracer singleton with the provided Tracer instance
      *
      * @param Tracer $tracer
      */
@@ -83,12 +83,16 @@ abstract class Tracer
     /**
      * Gets current GlobalTracer singleton.
      *
-     * Returns null if not initialized yet.
+     * Returns stub tracer if not initialized yet.
      *
      * @return Tracer|null
      */
     public static final function getGlobalTracer()
     {
+        if ( self::$globalTracerInstance === null ) {
+            self::$globalTracerInstance = new Stub\Tracer();
+        }
+
         return self::$globalTracerInstance;
     }
 
