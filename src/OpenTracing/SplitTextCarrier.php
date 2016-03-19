@@ -14,6 +14,18 @@ class SplitTextCarrier
     private $baggage = null;
 
     /**
+     * Create new SplitTextCarrier and optionally initialize it
+     *
+     * @param array|null $state
+     * @param array|null $baggage
+     */
+    public function __construct(array $state = null, array $baggage = null)
+    {
+        $this->state = $state;
+        $this->baggage = $baggage;
+    }
+
+    /**
      * @return array
      */
     public function getState()
