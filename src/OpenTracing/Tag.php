@@ -12,4 +12,8 @@ class Tag
     const PEER_PORT = "peer.port";
     const SAMPLING_PRIORITY = "sampling.priority";
 
+    const SPAN_KIND = 'span.kind';
+    const SPAN_KIND_RPC_SERVER = 's';
+    const SPAN_KIND_RPC_CLIENT = 'c';
+
 }
