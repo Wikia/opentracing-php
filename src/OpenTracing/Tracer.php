@@ -32,24 +32,37 @@ abstract class Tracer
     abstract public function startSpan($operationName = null, $parent = null, $tags = null, $startTime = null);
 
     /**
-     * Returns an Injector instance corresponding to $format
+     * Takes $span and injects it into $carrier.
      *
-     * @throws InvalidFormatException
+     * The actual type of $carrier depends on the $format.
      *
+     * Implementations may raise implementation-specific exception
+     * if injection fails.
+     *
+     * @param Span $span
      * @param string $format
-     * @return Injector
+     * @param mixed $carrier
+     * @throws \OpenTracing\Exception
      */
-    abstract public function injector($format);
+    abstract public function inject(Span $span, $format, &$carrier);
 
     /**
-     * Returns an Extractor instance corresponding to $format
+     * Returns a Span instance with operation name $operationName
+     * that's joined to the trace state embedded within $carrier, or null if
+     * no such trace state could be found.
      *
-     * @throws InvalidFormatException
-
+     * Implementations may raise implementation-specific errors
+     * if there are more fundamental problems with `carrier`.
+     *
+     * Upon success, the returned Span instance is already started.
+     *
+     * @param string $operationName
      * @param string $format
-     * @return Extractor
+     * @param mixed $carrier
+     * @throws \OpenTracing\Exception
+     * @return Span
      */
-    abstract public function extractor($format);
+    abstract public function join($operationName, $format, $carrier);
 
     /**
      * Flushes any trace data that may be buffered in memory, presumably

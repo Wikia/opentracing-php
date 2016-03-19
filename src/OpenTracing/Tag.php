@@ -10,6 +10,7 @@ class Tag
     const PEER_HOST_IPV4 = "peer.ipv4";
     const PEER_HOST_IPV6 = "peer.ipv6";
     const PEER_PORT = "peer.port";
+
     const SAMPLING_PRIORITY = "sampling.priority";
 
     const SPAN_KIND = 'span.kind';
