@@ -2,8 +2,6 @@
 
 namespace OpenTracing;
 
-use OpenTracing\Exception\InvalidFormatException;
-
 /**
  * Tracer is the entry point API between instrumentation code and the
  * tracing implementation.

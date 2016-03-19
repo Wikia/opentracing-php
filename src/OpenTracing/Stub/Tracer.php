@@ -3,8 +3,6 @@
 namespace OpenTracing\Stub;
 
 use OpenTracing;
-use OpenTracing\Injector;
-use OpenTracing\Extractor;
 
 /**
  * Tracer is the entry point API between instrumentation code and the
@@ -18,12 +16,10 @@ use OpenTracing\Extractor;
 class Tracer extends OpenTracing\Tracer
 {
     private $noopSpan = null;
-    private $noopPropagator = null;
 
     public function __construct()
     {
         $this->noopSpan = new Span($this);
-        $this->noopPropagator = new Propagator($this, $this->noopSpan);
     }
 
     /**
@@ -40,27 +36,44 @@ class Tracer extends OpenTracing\Tracer
         return $this->noopSpan;
     }
 
+
     /**
-     * Returns an Injector instance corresponding to $format
+     * Takes $span and injects it into $carrier.
      *
+     * The actual type of $carrier depends on the $format.
+     *
+     * Implementations may raise implementation-specific exception
+     * if injection fails.
+     *
+     * @param OpenTracing\Span $span
      * @param string $format
-     * @return Injector
+     * @param mixed $carrier
+     * @throws \OpenTracing\Exception
      */
-    public function injector($format)
-    {
-        return $this->noopPropagator;
+    public function inject(OpenTracing\Span $span, $format, &$carrier) {
+        // noop
     }
 
     /**
-     * Returns an Extractor instance corresponding to $format
+     * Returns a Span instance with operation name $operationName
+     * that's joined to the trace state embedded within $carrier, or null if
+     * no such trace state could be found.
      *
+     * Implementations may raise implementation-specific errors
+     * if there are more fundamental problems with `carrier`.
+     *
+     * Upon success, the returned Span instance is already started.
+     *
+     * @param string $operationName
      * @param string $format
-     * @return Extractor
+     * @param mixed $carrier
+     * @throws \OpenTracing\Exception
+     * @return OpenTracing\Span
      */
-    public function extractor($format)
-    {
-        return $this->noopPropagator;
+    public function join($operationName, $format, $carrier) {
+        return $this->noopSpan;
     }
+
 
     /**
      * Flushes any trace data that may be buffered in memory, presumably
