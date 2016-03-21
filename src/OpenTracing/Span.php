@@ -2,6 +2,8 @@
 
 namespace OpenTracing;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Span represents a unit of work executed on behalf of a trace. Examples of
  * spans include a remote procedure call, or a in-process method call to a
@@ -13,6 +15,8 @@ namespace OpenTracing;
  */
 abstract class Span
 {
+    private $logger;
+
     /**
      * Sets or changes the operation name.
      *
@@ -121,6 +125,14 @@ abstract class Span
     public final function startChild($operationName, $tags = null, $startTime = null)
     {
         return $this->getTracer()->startSpan($operationName, $this, $tags, $startTime);
+    }
+
+    public final function getLogger() {
+        if ( is_null($this->logger) ) {
+            $this->logger = new SpanLogger($this);
+        }
+
+        return $this->logger;
     }
 
 }

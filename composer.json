@@ -20,6 +20,9 @@
       "role": "Developer"
     }
   ],
+  "require": {
+    "psr/log": "~1.0"
+  },
   "autoload": {
     "psr-4": {
       "OpenTracing\\": "src/OpenTracing/"
