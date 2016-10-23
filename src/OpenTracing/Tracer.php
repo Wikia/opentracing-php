@@ -8,92 +8,63 @@ namespace OpenTracing;
  *
  * This implementation both defines the public Tracer API, and provides
  * a default no-op behavior.
- *
- * @package OpenTracing
  */
-abstract class Tracer
+interface Tracer
 {
-    /**
-     * @var Tracer
-     */
-    private static $globalTracerInstance = null;
-
     /**
      * Starts and returns a new Span representing a unit of work.
      *
      * @param string $operationName
-     * @param Span $parent
-     * @param array $tags
-     * @param float $startTime
+     * @param array $options
+     *      'child_of' (optional) a Span or SpanContext instance representing
+     *                 the parent in a REFERENCE_CHILD_OF Reference. If
+     *                 specified, the `references` parameter must be omitted.
+     *      'references' (optional) a list of Reference objects that identify one or more parent SpanContexts.
+     *                   (See the Reference documentation for detail)
+     *      'tags' an optional dictionary of Span Tags.
+     *      'start_time' an explicit Span start time as a {@link \DateTime}
      * @return Span
      */
-    abstract public function startSpan($operationName = null, $parent = null, $tags = null, $startTime = null);
+    public function startSpan($operationName = null, array $options = array());
 
     /**
-     * Takes $span and injects it into $carrier.
+     * Injects `span_context` into `carrier`.
+     *
+     * The type of `carrier` is determined by `format`. See the
+     * {@link \OpenTracing\Propagation} class/namespace for the built-in
+     * OpenTracing formats.
+     *
+     * Implementations MUST raise {@link OpenTracing\UnsupportedFormatException} if
+     * `format` is unknown or disallowed.
      *
      * The actual type of $carrier depends on the $format.
      *
-     * Implementations may raise implementation-specific exception
-     * if injection fails.
-     *
-     * @param Span $span
+     * @param SpanContext $context
      * @param string $format
      * @param mixed $carrier
-     * @throws \OpenTracing\Exception
+     * @throws \OpenTracing\UnsupportedFormatException
      */
-    abstract public function inject(Span $span, $format, &$carrier);
+    public function inject(SpanContext $context, $format, &$carrier);
 
     /**
-     * Returns a Span instance with operation name $operationName
-     * that's joined to the trace state embedded within $carrier, or null if
-     * no such trace state could be found.
+     * Returns a SpanContext instance extracted from a `carrier` of the given `format`, or None if no such SpanContext could be found.
      *
-     * Implementations may raise implementation-specific errors
-     * if there are more fundamental problems with `carrier`.
+     * The type of `carrier` is determined by `format`. See the
+     * {@link OpenTracing\Propagation} class/namespace for the built-in
+     * OpenTracing formats.
      *
-     * Upon success, the returned Span instance is already started.
+     * Implementations MUST raise {@link OpenTracing\UnsupportedFormatException} if
+     * `format` is unknown or disallowed.
      *
-     * @param string $operationName
+     * Implementations may raise {@link OpenTracing\InvalidCarrierException},
+     * {@link OpenTracing\SpanContextCorruptedException}, or
+     * implementation-specific errors if there are problems with `carrier`.
+     *
      * @param string $format
      * @param mixed $carrier
-     * @throws \OpenTracing\Exception
-     * @return Span
+     * @throws \OpenTracing\UnsupportedFormatException
+     * @throws \OpenTracing\InvalidCarrierException
+     * @return SpanContext
      */
-    abstract public function join($operationName, $format, $carrier);
-
-    /**
-     * Flushes any trace data that may be buffered in memory, presumably
-     * out of the process.
-     *
-     * @return void
-     */
-    abstract public function flush();
-
-    /**
-     * Initialize the GlobalTracer singleton with the provided Tracer instance
-     *
-     * @param Tracer $tracer
-     */
-    public static final function setGlobalTracer(Tracer $tracer)
-    {
-        self::$globalTracerInstance = $tracer;
-    }
-
-    /**
-     * Gets current GlobalTracer singleton.
-     *
-     * Returns stub tracer if not initialized yet.
-     *
-     * @return Tracer|null
-     */
-    public static final function getGlobalTracer()
-    {
-        if ( self::$globalTracerInstance === null ) {
-            self::$globalTracerInstance = new Stub\Tracer();
-        }
-
-        return self::$globalTracerInstance;
-    }
-
+    public function extract($format, $carrier);
 }
