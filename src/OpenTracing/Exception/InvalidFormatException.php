@@ -2,7 +2,8 @@
 
 namespace OpenTracing\Exception;
 
-class InvalidFormatException extends OpenTracingException
-{
+use InvalidArgumentException;
 
+class InvalidFormatException extends InvalidArgumentException implements OpenTracingException
+{
 }

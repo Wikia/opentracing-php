@@ -2,16 +2,17 @@
 
 namespace OpenTracing;
 
+use DateTime;
+
 /**
- * Span represents a unit of work executed on behalf of a trace. Examples of
- * spans include a remote procedure call, or a in-process method call to a
- * sub-component. A trace is required to have a single, top level "root"
- * span, and zero or more children spans, which in turns can have their own
- * children spans, thus forming a tree structure.
+ * Span represents a unit of work executed on behalf of a trace.
  *
- * @package OpenTracing
+ * Examples of spans include a remote procedure call, or a in-process method
+ * call to a sub-component. A trace is required to have a single, top level
+ * "root" span, and zero or more children spans, which in turns can have their
+ * own children spans, thus forming a tree structure.
  */
-abstract class Span
+interface Span
 {
     /**
      * Sets or changes the operation name.
@@ -19,7 +20,7 @@ abstract class Span
      * @param string $operationName
      * @return $this
      */
-    abstract public function setOperationName($operationName);
+    public function setOperationName($operationName);
 
     /**
      * Indicates that the work represented by this span has been completed
@@ -28,9 +29,9 @@ abstract class Span
      * If any tags / logs need to be added to the span, it should be done
      * before calling finish(), otherwise they may be ignored.
      *
-     * @param float $finishTime
+     * @param \DateTime $finishTime
      */
-    abstract public function finish($finishTime = null);
+    public function finish(DateTime $finishTime = null);
 
     /**
      * Attaches a key/value pair to the span.
@@ -48,26 +49,16 @@ abstract class Span
      * @param mixed $value
      * @return $this
      */
-    abstract public function setTag($key, $value);
+    public function setTag($key, $value);
 
     /**
      * Logs an event against the span, with the current timestamp.
      *
-     * @param string $event
-     * @param array $payload
+     * @param array $values
+     * @param DateTime $timestamp
      * @return $this
      */
-    abstract public function logEvent($event, $payload = null);
-
-    /**
-     * Records a generic Log event at an arbitrary timestamp.
-     *
-     * @param float $timestamp
-     * @param string $event
-     * @param array $payload
-     * @return $this
-     */
-    abstract public function log($timestamp, $event, $payload = null);
+    public function logKV(array $values, DateTime $timestamp = null);
 
     /**
      * Stores Baggage Item in the span as a key/value pair.
@@ -89,7 +80,7 @@ abstract class Span
      * @param mixed $value
      * @return $this
      */
-    abstract public function setBaggageItem($key, $value);
+    public function setBaggageItem($key, $value);
 
     /**
      * Retrieves value of the Baggage Item with the given key.
@@ -101,26 +92,19 @@ abstract class Span
      * @param string $key
      * @return mixed
      */
-    abstract public function getBaggageItem($key);
+    public function getBaggageItem($key);
 
     /**
      * Provides access to the Tracer that created this Span.
      *
      * @return Tracer
      */
-    abstract public function getTracer();
+    public function getTracer();
 
     /**
-     * A shorthand method that starts a child span given a parent span.
+     * Provides access to the {@link \OpenTracing\SpanContext}
      *
-     * @param string $operationName
-     * @param array $tags
-     * @param float $startTime
-     * @return Span
+     * @return SpanContext
      */
-    public final function startChild($operationName, $tags = null, $startTime = null)
-    {
-        return $this->getTracer()->startSpan($operationName, $this, $tags, $startTime);
-    }
-
+    public function getSpanContext();
 }

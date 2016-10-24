@@ -2,7 +2,6 @@
 
 namespace OpenTracing\Exception;
 
-class OpenTracingException extends \Exception
+interface OpenTracingException
 {
-
 }

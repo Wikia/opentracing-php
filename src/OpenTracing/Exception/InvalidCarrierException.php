@@ -2,7 +2,8 @@
 
 namespace OpenTracing\Exception;
 
-class InvalidCarrierException extends OpenTracingException
-{
+use InvalidArgumentException;
 
+class InvalidCarrierException extends InvalidArgumentException implements OpenTracingException
+{
 }
